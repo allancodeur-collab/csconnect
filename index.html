@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>CIS Connect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <!-- ══════════════════════════════════════════════════════════
+       LOGIN
+  ══════════════════════════════════════════════════════════ -->
+  <div id="loginScreen" class="screen active">
+    <div class="login-logo">🔥</div>
+    <div class="login-title">CIS CONNECT</div>
+    <div class="login-subtitle">SDIS 31</div>
+    <div class="login-card">
+      <div class="input-group">
+        <label>Adresse Email</label>
+        <input type="email" id="loginEmail" placeholder="votre@email.fr" value="pierre.dubois@sdis.fr">
+      </div>
+      <div class="input-group">
+        <label>Mot de passe</label>
+        <input type="password" id="loginPass" placeholder="••••••••" value="password">
+      </div>
+      <button class="btn-primary" onclick="doLogin()">CONNEXION</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       DASHBOARD
+  ══════════════════════════════════════════════════════════ -->
+  <div id="dashScreen" class="screen">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="topbar-logo">🚒</div>
+        <div class="topbar-title">CIS AUTERIVE</div>
+      </div>
+      <div class="topbar-right">
+        <button class="notif-btn" onclick="toggleNotifs()">
+          🔔<div class="notif-badge" id="notifCount">3</div>
+        </button>
+        <button class="avatar-sm" onclick="showScreen('profilScreen')">👤</button>
+      </div>
+    </div>
+
+    <div class="dash-hero">
+      <div class="dash-cis-name">Caporal Dubois</div>
+      <div class="dash-stats">
+        <div class="stat-card red">
+          <div class="stat-value">1287</div>
+          <div class="stat-label">🚨 Interventions totales</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-sub">📅 Aujourd'hui</div>
+          <div class="stat-med" id="dateToday"></div>
+          <div class="stat-sub" style="margin-top:6px">🏥 Visite médicale</div>
+          <div class="stat-med-sub">16/08/2025</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-content dash-pad">
+      <div class="section-title">Modules principaux</div>
+      <div class="menu-grid">
+        <button class="menu-btn" onclick="showScreen('actuScreen')">
+          <div class="icon">📰</div>
+          <div class="label">Actualités</div>
+          <div class="sublabel">3 nouvelles</div>
+        </button>
+        <button class="menu-btn orange" onclick="showScreen('fdfScreen')">
+          <div class="icon">🌲</div>
+          <div class="label">Dispo FDF</div>
+          <div class="sublabel">Feux de forêt</div>
+        </button>
+        <button class="menu-btn green" onclick="showScreen('invScreen')">
+          <div class="icon">📋</div>
+          <div class="label">Inventaires</div>
+          <div class="sublabel">9 véhicules</div>
+        </button>
+        <button class="menu-btn blue" onclick="showScreen('vehicScreen')">
+          <div class="icon">🚒</div>
+          <div class="label">Véhicules</div>
+          <div class="sublabel">1 problème</div>
+        </button>
+      </div>
+
+      <div class="section-title">Autres modules</div>
+
+      <button class="menu-btn-full" onclick="showScreen('infosScreen')">
+        <div class="menu-btn-full-left">
+          <div class="menu-btn-full-icon bg-purple">📁</div>
+          <div class="menu-btn-full-text">
+            <div class="title">Infos Internes</div>
+            <div class="sub">Notes & procédures</div>
+          </div>
+        </div>
+        <div class="chevron">›</div>
+      </button>
+
+      <button class="menu-btn-full" onclick="showScreen('annuaireScreen')">
+        <div class="menu-btn-full-left">
+          <div class="menu-btn-full-icon bg-blue">📒</div>
+          <div class="menu-btn-full-text">
+            <div class="title">Annuaire CS</div>
+            <div class="sub">Coordonnées équipe</div>
+          </div>
+        </div>
+        <div class="chevron">›</div>
+      </button>
+
+      <button class="menu-btn-full" onclick="showScreen('formationScreen')">
+        <div class="menu-btn-full-left">
+          <div class="menu-btn-full-icon bg-green">🎓</div>
+          <div class="menu-btn-full-text">
+            <div class="title">Formations</div>
+            <div class="sub">Suivi FMPA</div>
+          </div>
+        </div>
+        <div class="chevron">›</div>
+      </button>
+
+      <button class="menu-btn-full" onclick="showScreen('gardeScreen')">
+        <div class="menu-btn-full-left">
+          <div class="menu-btn-full-icon bg-orange">🛡️</div>
+          <div class="menu-btn-full-text">
+            <div class="title">Équipe de Garde 1</div>
+            <div class="sub">Communication interne</div>
+          </div>
+        </div>
+        <div class="chevron">›</div>
+      </button>
+
+      <button class="menu-btn-full" onclick="showScreen('adminScreen')">
+        <div class="menu-btn-full-left">
+          <div class="menu-btn-full-icon bg-red">⚙️</div>
+          <div class="menu-btn-full-text">
+            <div class="title">Administrateur</div>
+            <div class="sub">Gestion & configuration</div>
+          </div>
+        </div>
+        <div class="chevron">›</div>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       ACTUALITÉS
+  ══════════════════════════════════════════════════════════ -->
+  <div id="actuScreen" class="screen">
+    <div class="sub-header">
+      <button class="back-btn" onclick="showScreen('dashScreen')">←</button>
+      <div class="sub-header-title">📰 Actualités</div>
+      <button class="notif-btn" style="margin-left:auto" onclick="toggleNotifs()">
+        🔔<div class="notif-badge">3</div>
+      </button>
+    </div>
+    <div class="sub-content" id="actuList" style="padding-bottom:90px"></div>
+    <button class="fab" onclick="openPublishModal()">✏️</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       FDF – DISPONIBILITÉS
+  ══════════════════════════════════════════════════════════ -->
+  <div id="fdfScreen" class="screen">
+    <div class="sub-header">
+      <button class="back-btn" onclick="showScreen('dashScreen')">←</button>
+      <div class="sub-header-title">🌲 Disponibilités FDF</div>
+    </div>
+    <div class="sub-content" style="padding-bottom:30px">
+      <div style="font-weight:700;font-size:16px;margin-bottom:14px">Bonjour Pierre ! 👋</div>
+
+      <!-- Vue SPV -->
+      <div id="fdfMyView">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:10px">
+          Touchez un jour pour basculer votre dispo. Utilisez les boutons rapides pour toute la semaine.
+        </div>
+        <div class="fdf-week-nav">
+          <button class="week-arrow" onclick="fdfChangeWeek(-1)">‹</button>
+          <span class="week-label" id="fdfWeekLabel">—</span>
+          <button class="week-arrow" onclick="fdfChangeWeek(1)">›</button>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:12px">
+          <button onclick="fdfSetWeek(true)"  style="flex:1;background:rgba(39,174,96,0.15);border:1px solid rgba(39,174,96,0.3);border-radius:10px;padding:9px;color:var(--green);font-weight:700;font-size:13px;">✓ Toute la semaine</button>
+          <button onclick="fdfSetWeek(false)" style="flex:1;background:rgba(192,39,45,0.1);border:1px solid rgba(192,39,45,0.2);border-radius:10px;padding:9px;color:var(--red-light);font-weight:700;font-size:13px;">✗ Toute la semaine</button>
+        </div>
+        <div class="fdf-grid-header">
+          <div></div>
+          <div class="fdf-day-label">Lun</div>
+          <div class="fdf-day-label">Mar</div>
+          <div class="fdf-day-label">Mer</div>
+          <div class="fdf-day-label">Jeu</div>
+          <div class="fdf-day-label">Ven</div>
+          <div class="fdf-day-label">Sam</div>
+          <div class="fdf-day-label">Dim</div>
+        </div>
+        <div id="fdfMyRow" class="fdf-row"></div>
+        <div id="fdfStatusBadge" style="text-align:center;margin:10px 0 4px;font-size:12px;color:var(--text2)">0/7 jours renseignés</div>
+        <button class="btn-valider" onclick="fdfSaveMyDispos()">💾 ENREGISTRER MES DISPONIBILITÉS</button>
+      </div>
+
+      <!-- Vue Responsable FDF -->
+      <div id="fdfRespoView" style="display:none">
+        <div class="fdf-week-nav">
+          <button class="week-arrow" onclick="fdfChangeWeek(-1)">‹</button>
+          <span class="week-label" id="fdfWeekLabel2">—</span>
+          <button class="week-arrow" onclick="fdfChangeWeek(1)">›</button>
+        </div>
+        <div id="fdfAllRows"></div>
+        <div class="fdf-summary">
+          <div class="fdf-count green">
+            <div class="fdf-count-value" id="fdfCountDispo">0</div>
+            <div class="fdf-count-label">Validés</div>
+          </div>
+          <div class="fdf-divider"></div>
+          <div class="fdf-count red">
+            <div class="fdf-count-value" id="fdfCountIndispo">0</div>
+            <div class="fdf-count-label">Refusés</div>
+          </div>
+          <div class="fdf-divider"></div>
+          <div class="fdf-count">
+            <div class="fdf-count-value" id="fdfCountPending" style="color:var(--orange)">0</div>
+            <div class="fdf-count-label">En attente</div>
+          </div>
+        </div>
+        <button class="btn-valider" onclick="fdfValiderTous()">✅ VALIDER TOUS EN ATTENTE</button>
+      </div>
+
+      <!-- Sélecteur de vue (démo rôles) -->
+      <div style="margin-top:20px;padding:12px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px">
+        <div style="font-size:11px;color:var(--text2);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;font-weight:700">Changer de vue (démonstration rôles)</div>
+        <div style="display:flex;gap:8px">
+          <button id="fdfBtnMy"    onclick="fdfShowView('my')"    style="flex:1;background:var(--red);border:none;border-radius:8px;padding:8px;color:white;font-weight:700;font-size:12px;">Ma vue SPV</button>
+          <button id="fdfBtnRespo" onclick="fdfShowView('respo')" style="flex:1;background:var(--gray);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--text);font-weight:700;font-size:12px;">Vue Responsable FDF</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       INVENTAIRES
+  ══════════════════════════════════════════════════════════ -->
+  <div id="invScreen" class="screen">
+    <div class="sub-header">
+      <button class="back-btn" onclick="showScreen('dashScreen')">←</button>
+      <div class="sub-header-title">📋 Inventaires</div>
+    </div>
+    <div class="sub-content">
+      <div class="protocol-card">
+        <div class="protocol-title">🩺 Suivi Protocole 3 VSAV</div>
+        <div class="protocol-row">
+          <button class="protocol-btn" onclick="showToast('✅ Protocole VSAV 1 validé - ' + new Date().toLocaleDateString('fr-FR'))">
+            <div class="vehicle">VSAV 1</div>
+            <div class="last">Dernier : 15/04/2025</div>
+            <div class="last" style="color:var(--green)">Sgt. Martin</div>
+          </button>
+          <button class="protocol-btn" onclick="showToast('✅ Protocole VSAV 2 validé - ' + new Date().toLocaleDateString('fr-FR'))">
+            <div class="vehicle">VSAV 2</div>
+            <div class="last">Dernier : 13/04/2025</div>
+            <div class="last" style="color:var(--green)">Cpl. Dubois</div>
+          </button>
+        </div>
+      </div>
+      <div class="section-title">Véhicules</div>
+      <div id="vehicleList"></div>
+      <div class="spacer-md"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       VÉHICULES
+  ══════════════════════════════════════════════════════════ -->
+  <div id="vehicScreen" class="screen">
+    <div class="sub-header">
+      <button class="back-btn" onclick="showScreen('dashScreen')">←</button>
+      <div class="sub-header-title">🚒 Véhicules</div>
+    </div>
+    <div class="sub-content">
+      <div class="section-title">Synoptique Disponibilité</div>
+      <div id="vehicSynoptic"></div>
+
+      <div class="section-title" style="margin-top:20px">Problèmes signalés</div>
+      <div class="problem-card">
+        <div class="problem-left"><div>
+          <div class="problem-vehicle">FPT</div>
+          <div class="problem-desc">Défaut Radio</div>
+          <div class="problem-date">13/04/2025 • Signalé par Cpl. Dubois</div>
+        </div></div>
+        <div class="problem-status status-open">En cours</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-left"><div>
+          <div class="problem-vehicle">FPT</div>
+          <div class="problem-desc">Fuite d'eau</div>
+          <div class="problem-date">11/04/2025 • Signalé par Sgt. Lefebvre</div>
+        </div></div>
+        <div class="problem-status status-resolved">Réparé</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-left"><div>
+          <div class="problem-vehicle">VSR</div>
+          <div class="problem-desc">Imoni Adjoint</div>
+          <div class="problem-date">09/04/2025 • Signalé par Cpl. Moreau</div>
+        </div></div>
+        <div class="problem-status status-resolved">Réparé</div>
+      </div>
+      <button class="btn-inline" onclick="openProblemModal()">➕ Signaler un problème</button>
+      <div class="spacer-md"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       INFOS INTERNES
+  ══════════════════════════════════════════════════════════ -->
+  <div id="infosScreen" class="screen">
+    <div class="sub-header">
+      <button class="back-btn" onclick="showScreen('dashScreen')">←</button>
+      <div class="sub-header-title">📁 Infos Internes</div>
+    </div>
+    <div class="sub-content">
+      <div class="cat-scroll">
+        <button class="cat-btn active" onclick="filterCat(this,'Tout')">Tout</button>
+        <button class="cat-btn" onclick="filterCat(this,'Note de service')">Notes de service</button>
+        <button class="cat-btn" onclick="filterCat(this,'Note interne')">Notes internes</button>
+        <button class="cat-btn" onclick="filterCat(this,'Procédure')">Procédures</button>
+      </div>
+      <div class="doc-card" onclick="showToast('📋 Ouverture du document...')">
+        <div class="doc-card-header">
+          <div class="doc-icon">📋</div>
+          <div><div class="doc-title">Procédure Extraction AVP</div><div class="doc-cat">Procédure</div></div>
+          <div class="doc-date">12/04/2025</div>
+        </div>
+      </div>
+      <div class="doc-card" onclick="showToast('📝 Ouverture du document...')">
+        <div class="doc-card-header">
+          <div class="doc-icon">📝</div>
+          <div><div class="doc-title">Note de service N°12/2025</div><div class="doc-cat">Note de service</div></div>
+          <div class="doc-date">10/04/2025</div>
+        </div>
+      </div>
+      <div class="doc-card" onclick="showToast('🔒 Ouverture du document...')">
+        <div class="doc-card-header">
+          <div class="doc-icon">🔒</div>
+          <div><div class="doc-title">Note interne – Astreinte Chef</div><div class="doc-cat">Note interne</div></div>
+          <div class="doc-date">08/04/2025</div>
+        </div>
+      </div>
+      <div class="doc-card" onclick="showToast('📋 Ouverture du document...')">
+        <div class="doc-card-header">
+          <div class="doc-icon">📋</div>
+          <div><div class="doc-title">Procédure VSAV – Protocole 3</div><div class="doc-cat">Procédure</div></div>
+          <div class="doc-date">01/04/2025</div>
+        </div>
+      </div>
+      <button class="btn-inline" onclick="showToast('📤 Formulaire de publication')">📤 Publier un document</button>
+      <div class="spacer-md"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       ANNUAIRE
+  ══════════════════════════════════════════════════════════ -->
+  <div id="annuaireScreen" class="screen">
+    <div class="sub-header">
+      <button class="back-btn" onclick="showScreen('dashScreen')">←</button>
+      <div class="sub-header-title">📒 Annuaire CS</div>
+    </div>
+    <div class="sub-content">
+      <div class="search-bar">
+        <span>🔍</span>
+        <input type="text" placeholder="Rechercher un pompier..." oninput="filterAnnuaire(this.value)">
+      </div>
+      <div id="annuaireList"></div>
+      <div class="spacer-md"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       FORMATIONS
+  ══════════════════════════════════════════════════════════ -->
+  <div id="formationScreen" class="screen">
+    <div class="sub-header">
+      <button class="back-btn" onclick="showScreen('dashScreen')">←</button>
+      <div class="sub-header-title">🎓 Formations</div>
+    </div>
+    <div class="sub-content">
+      <div id="formationList"></div>
+      <button class="btn-inline" onclick="openFormationModal()">➕ Nouvelle évaluation</button>
+      <div class="spacer-md"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       GARDE – CHAT
+  ══════════════════════════════════════════════════════════ -->
+  <div id="gardeScreen" class="screen">
+    <div class="sub-header">
+      <button class="back-btn" onclick="showScreen('dashScreen')">←</button>
+      <div class="sub-header-title">🛡️ Garde 1</div>
+    </div>
+    <div style="padding:16px 18px;border-bottom:1px solid var(--border);background:rgba(192,39,45,0.05)">
+      <div style="font-size:13px;color:var(--text2)">Prochaine manœuvre</div>
+      <div style="font-weight:700;font-size:16px">Samedi 26 Avril – 14h00</div>
+      <div style="font-size:12px;color:var(--text2);margin-top:4px">Sport : Lt. Martin • Repas : Adjt. Roux</div>
+    </div>
+    <div class="sub-content garde-chat" id="gardeChat" style="padding-bottom:80px">
+      <div class="chat-msg received">
+        <div class="chat-msg-author">Lt. Martin (Chef de Garde)</div>
+        Bonjour la garde ! Manœuvre samedi 9h, tout le monde dispo ?
+        <div class="chat-time">08:32</div>
+      </div>
+      <div class="chat-msg sent">
+        Présent ! Je m'occupe du sport.
+        <div class="chat-time">08:45</div>
+      </div>
+      <div class="chat-msg received">
+        <div class="chat-msg-author">Sgt. Lefebvre</div>
+        Je serai là, je prends le repas en charge 🍳
+        <div class="chat-time">09:01</div>
+      </div>
+      <div class="chat-msg received">
+        <div class="chat-msg-author">Lt. Martin (Chef de Garde)</div>
+        Parfait ! Rappel : tenues de sortie pour la manœuvre.
+        <div class="chat-time">09:15</div>
+      </div>
+    </div>
+    <div class="chat-input-bar">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Message à la garde...">
+      <button class="chat-send" onclick="sendGardeMsg()">➤</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       PROFIL
+  ══════════════════════════════════════════════════════════ -->
+  <div id="profilScreen" class="screen">
+    <div class="topbar">
+      <button class="back-btn" onclick="showScreen('dashScreen')">←</button>
+      <div class="topbar-title">Mon Profil</div>
+      <div style="width:34px"></div>
+    </div>
+    <div style="overflow-y:auto;flex:1">
+      <div class="profil-hero">
+        <div class="profil-avatar-wrap">
+          <div class="profil-avatar">👨‍🚒</div>
+          <button class="profil-edit-btn" onclick="showToast('📷 Modifier photo de profil')">✏️</button>
+        </div>
+        <div class="profil-name">Pierre Dubois</div>
+        <div class="profil-grade">Caporal • Sapeur-Pompier Volontaire</div>
+        <div class="profil-role-badge">SPV – Garde 1</div>
+      </div>
+      <div class="profil-section">
+        <div class="profil-info-card">
+          <div class="profil-info-row">
+            <div class="profil-info-icon">✉️</div>
+            <div><div class="profil-info-label">Email</div><div class="profil-info-value">p.dubois@sdis.fr</div></div>
+          </div>
+          <div class="profil-info-row">
+            <div class="profil-info-icon">📱</div>
+            <div><div class="profil-info-label">Téléphone</div><div class="profil-info-value">06 12 33 56 78</div></div>
+          </div>
+          <div class="profil-info-row">
+            <div class="profil-info-icon">🎖️</div>
+            <div><div class="profil-info-label">Grade</div><div class="profil-info-value">Caporal</div></div>
+          </div>
+          <div class="profil-info-row">
+            <div class="profil-info-icon">🔑</div>
+            <div><div class="profil-info-label">Fonction</div><div class="profil-info-value">EQ</div></div>
+          </div>
+          <div class="profil-info-row">
+            <div class="profil-info-icon">🏥</div>
+            <div>
+              <div class="profil-info-label">Visite médicale prévue</div>
+              <div class="profil-info-value" style="color:var(--orange)">16/08/2025</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Paramètres de notifications</div>
+        <div class="profil-info-card">
+          <div class="toggle-row">
+            <div class="toggle-label">🔔 Notifications globales</div>
+            <div class="toggle" onclick="this.classList.toggle('off')"></div>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-label">🚨 Alertes urgentes</div>
+            <div class="toggle" onclick="this.classList.toggle('off')"></div>
+          </div>
+          <div class="toggle-row">
+            <div class="toggle-label">🚒 Problèmes véhicules</div>
+            <div class="toggle" onclick="this.classList.toggle('off')"></div>
+          </div>
+        </div>
+        <button class="btn-logout" onclick="doLogout()">🚪 DÉCONNEXION</button>
+        <div class="spacer-sm"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       ADMIN
+  ══════════════════════════════════════════════════════════ -->
+  <div id="adminScreen" class="screen">
+    <div class="sub-header">
+      <button class="back-btn" onclick="showScreen('dashScreen')">←</button>
+      <div class="sub-header-title">⚙️ Administrateur</div>
+    </div>
+    <div class="sub-content">
+      <div class="admin-section">
+        <div class="admin-section-title">🚨 Interventions totales</div>
+        <input class="admin-input" type="number" id="interventionCount" value="1287">
+        <button class="btn-secondary" onclick="showToast('✅ Mis à jour !')">Mettre à jour</button>
+      </div>
+      <div class="admin-section" style="cursor:pointer" onclick="showScreen('userMgmtScreen')">
+        <div class="admin-section-title">👥 Gestion des utilisateurs</div>
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="color:var(--text2);font-size:14px">Gérer les comptes, rôles et profils</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span id="adminUserCount" style="background:var(--red);color:white;padding:2px 10px;border-radius:10px;font-size:13px;font-weight:800">8</span>
+            <span style="color:var(--red-light);font-size:20px">›</span>
+          </div>
+        </div>
+      </div>
+      <div class="admin-section">
+        <div class="admin-section-title">🚒 Véhicules</div>
+        <input class="admin-input" type="text" placeholder="Nom du nouveau véhicule (ex: VPI)">
+        <button class="btn-secondary" onclick="showToast('✅ Véhicule ajouté !')">Ajouter</button>
+      </div>
+      <div class="admin-section">
+        <div class="admin-section-title">📧 Email suivi formations</div>
+        <input class="admin-input" type="email" value="formation@sdis31.fr">
+        <button class="btn-secondary" onclick="showToast('✅ Email mis à jour !')">Enregistrer</button>
+      </div>
+      <div class="spacer-md"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       USER MANAGEMENT
+  ══════════════════════════════════════════════════════════ -->
+  <div id="userMgmtScreen" class="screen">
+    <div class="topbar">
+      <button class="back-btn" onclick="showScreen('adminScreen')">←</button>
+      <div class="topbar-title">👥 Utilisateurs <span class="user-count-badge" id="userCountBadge">8</span></div>
+      <button class="btn-secondary" style="padding:7px 14px;font-size:13px" onclick="openUserEdit(null)">➕ Ajouter</button>
+    </div>
+    <div style="padding:16px 18px;padding-bottom:60px;overflow-y:auto;flex:1">
+      <div class="search-bar" style="margin-bottom:12px">
+        <span>🔍</span>
+        <input type="text" placeholder="Rechercher..." oninput="filterUsers(this.value)" id="userSearch">
+      </div>
+      <div class="filter-bar">
+        <button class="filter-pill active" onclick="setRoleFilter(this,'Tous')">Tous</button>
+        <button class="filter-pill" onclick="setRoleFilter(this,'SPV')">SPV</button>
+        <button class="filter-pill" onclick="setRoleFilter(this,'Chef de Garde')">Chef de Garde</button>
+        <button class="filter-pill" onclick="setRoleFilter(this,'Formateur')">Formateur</button>
+        <button class="filter-pill" onclick="setRoleFilter(this,'Mécanicien')">Mécanicien</button>
+        <button class="filter-pill" onclick="setRoleFilter(this,'Admin')">Admin</button>
+      </div>
+      <div id="userCardList"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       NOTIFICATIONS PANEL
+  ══════════════════════════════════════════════════════════ -->
+  <div id="notifPanel">
+    <div class="notif-overlay" onclick="toggleNotifs()"></div>
+    <div class="notif-drawer">
+      <div class="notif-header">
+        <div class="notif-header-title">🔔 Notifications</div>
+        <button style="background:none;border:none;color:white;font-size:18px" onclick="toggleNotifs()">✕</button>
+      </div>
+      <div class="notif-item unread" onclick="markRead(this)">
+        <div class="notif-item-header">
+          <span class="notif-sender">Lt. Martin <span class="notif-dot"></span></span>
+          <span class="notif-time">il y a 10 min</span>
+        </div>
+        <div class="notif-msg">Nouvelle publication : Formation Sauvetage à la corde – Samedi 23 Avril 2025</div>
+      </div>
+      <div class="notif-item unread" onclick="markRead(this)">
+        <div class="notif-item-header">
+          <span class="notif-sender">Adjt. Dupont <span class="notif-dot"></span></span>
+          <span class="notif-time">il y a 2h</span>
+        </div>
+        <div class="notif-msg">⚠️ ALERTE URGENTE : Orages violents prévus ce soir. Restez joignables.</div>
+      </div>
+      <div class="notif-item unread" onclick="markRead(this)">
+        <div class="notif-item-header">
+          <span class="notif-sender">Mécanicien Roux <span class="notif-dot"></span></span>
+          <span class="notif-time">il y a 3h</span>
+        </div>
+        <div class="notif-msg">🚒 FPT indisponible – Problème radio en cours de traitement.</div>
+      </div>
+      <div class="notif-item" onclick="markRead(this)">
+        <div class="notif-item-header">
+          <span class="notif-sender">Responsable FDF</span>
+          <span class="notif-time">Hier</span>
+        </div>
+        <div class="notif-msg">✅ Votre disponibilité FDF semaine 16 a été validée.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL – PUBLIER
+  ══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="publishModal">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="modal-title">✏️ Nouvelle publication</div>
+      <select class="select-input" id="pubType">
+        <option value="event">📅 Événement</option>
+        <option value="formation">🎓 Formation</option>
+        <option value="alert">⚠️ Alerte urgente</option>
+      </select>
+      <input class="admin-input" type="text" id="pubTitle" placeholder="Titre de la publication">
+      <textarea class="admin-input" id="pubBody" placeholder="Contenu du message..." style="min-height:90px;resize:vertical"></textarea>
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--text2);margin-bottom:10px">
+        <input type="checkbox" id="pubHasFile" onchange="document.getElementById('pubFileName').style.display=this.checked?'block':'none'" style="accent-color:var(--red);width:16px;height:16px">
+        Ajouter une pièce jointe
+      </label>
+      <input class="admin-input" type="text" id="pubFileName" placeholder="Nom du fichier (ex: Document.pdf)" style="display:none">
+      <button class="btn-primary" onclick="publishActu()">📢 PUBLIER ET NOTIFIER TOUS</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL – SIGNALER UN PROBLÈME
+  ══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="problemModal">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="modal-title">🚨 Signaler un problème</div>
+      <select class="select-input" id="problemVehicle">
+        <option>VSAV 1</option><option>VSAV 2</option><option>FPT</option>
+        <option>EPA</option><option>VSR</option><option>CCF</option>
+        <option>VTUTP</option><option>VTP</option><option>VLTC</option>
+      </select>
+      <input class="admin-input" type="text" id="problemDesc" placeholder="Description du problème">
+      <textarea class="admin-input" placeholder="Détails supplémentaires..."></textarea>
+      <button class="btn-primary" onclick="submitProblem()">SIGNALER</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL – FORMATION
+  ══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="formationModal">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="modal-title">📋 Nouvelle évaluation</div>
+      <select class="select-input" id="formPersonnel">
+        <option>Dubois Pierre</option><option>Martin Sophie</option>
+        <option>Lefebvre Tom</option><option>Moreau Julie</option>
+      </select>
+      <select class="select-input" id="formType">
+        <option value="suap">Manœuvre : SUAP</option>
+        <option value="inc">Manœuvre : INC</option>
+        <option value="div">Manœuvre : DIV</option>
+      </select>
+      <input class="admin-input" type="date" id="formDate">
+      <select class="select-input" id="formFonction">
+        <option>EQ</option><option>CA1E</option><option>CATE</option><option>CDG</option>
+      </select>
+      <textarea class="admin-input" id="formPositif" placeholder="✅ Points positifs..."></textarea>
+      <textarea class="admin-input" id="formAmelio"  placeholder="🔧 Axes d'amélioration..."></textarea>
+      <select class="select-input" id="formFormateur">
+        <option>Lt. Roux</option><option>Cne. Durand</option>
+      </select>
+      <button class="btn-primary" onclick="submitFormation()">ENREGISTRER</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       MODAL – ÉDITION UTILISATEUR (full screen)
+  ══════════════════════════════════════════════════════════ -->
+  <div class="modal-full" id="editUserModal">
+    <div class="modal-full-header">
+      <button class="back-btn" onclick="closeUserEdit()">←</button>
+      <div class="modal-full-title" id="editModalTitle">Modifier</div>
+    </div>
+    <div class="modal-full-body">
+
+      <!-- Aperçu avatar -->
+      <div style="display:flex;justify-content:center;margin-bottom:24px">
+        <div id="editAvatarPreview" style="width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;color:white;border:3px solid rgba(255,255,255,0.2);position:relative;background:#C0272D">
+          <span id="editAvatarEmoji">👤</span>
+          <div style="position:absolute;bottom:0;right:0;width:26px;height:26px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:12px">✏️</div>
+        </div>
+      </div>
+
+      <!-- Emoji picker -->
+      <div class="form-group">
+        <label class="form-label">Emoji avatar</label>
+        <div class="avatar-picker" id="avatarPicker">
+          <div class="avatar-opt selected" data-emoji="👤"  onclick="selectAvatar(this)" style="background:#555">👤</div>
+          <div class="avatar-opt" data-emoji="👨‍🚒" onclick="selectAvatar(this)" style="background:#8B1A1E">👨‍🚒</div>
+          <div class="avatar-opt" data-emoji="👩‍🚒" onclick="selectAvatar(this)" style="background:#8B1A1E">👩‍🚒</div>
+          <div class="avatar-opt" data-emoji="🧑‍🚒" onclick="selectAvatar(this)" style="background:#8B1A1E">🧑‍🚒</div>
+          <div class="avatar-opt" data-emoji="👮"  onclick="selectAvatar(this)" style="background:#0F3460">👮</div>
+          <div class="avatar-opt" data-emoji="⭐"  onclick="selectAvatar(this)" style="background:#2C7A3A">⭐</div>
+          <div class="avatar-opt" data-emoji="🎖️" onclick="selectAvatar(this)" style="background:#7D5A00">🎖️</div>
+          <div class="avatar-opt" data-emoji="🔧"  onclick="selectAvatar(this)" style="background:#333">🔧</div>
+        </div>
+      </div>
+
+      <!-- Color picker -->
+      <div class="form-group">
+        <label class="form-label">Couleur avatar</label>
+        <div class="color-picker" id="colorPicker">
+          <div class="color-opt selected" data-color="#C0272D" onclick="selectColor(this)" style="background:#C0272D"></div>
+          <div class="color-opt" data-color="#8B1A1E" onclick="selectColor(this)" style="background:#8B1A1E"></div>
+          <div class="color-opt" data-color="#0F3460" onclick="selectColor(this)" style="background:#0F3460"></div>
+          <div class="color-opt" data-color="#27AE60" onclick="selectColor(this)" style="background:#27AE60"></div>
+          <div class="color-opt" data-color="#E67E22" onclick="selectColor(this)" style="background:#E67E22"></div>
+          <div class="color-opt" data-color="#9B59B6" onclick="selectColor(this)" style="background:#9B59B6"></div>
+          <div class="color-opt" data-color="#2980B9" onclick="selectColor(this)" style="background:#2980B9"></div>
+          <div class="color-opt" data-color="#555"    onclick="selectColor(this)" style="background:#555"></div>
+        </div>
+      </div>
+
+      <!-- Nom / Prénom -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group">
+          <label class="form-label">Prénom</label>
+          <input class="form-input" type="text" id="editPrenom" placeholder="Pierre">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nom</label>
+          <input class="form-input" type="text" id="editNom" placeholder="Dubois">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input class="form-input" type="email" id="editEmail" placeholder="p.dubois@sdis.fr">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Téléphone</label>
+        <input class="form-input" type="tel" id="editTel" placeholder="06 12 34 56 78">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Grade</label>
+        <select class="form-input" id="editGrade">
+          <option>Sapeur</option><option>Caporal</option><option>Sergent</option>
+          <option>Sergent Chef</option><option>Adjudant</option><option>Adjudant Chef</option>
+          <option>Lieutenant</option><option>Capitaine</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Fonction</label>
+        <select class="form-input" id="editFonction">
+          <option>EQ</option><option>CA1E</option><option>CATE</option><option>CDG</option>
+        </select>
+      </div>
+
+      <!-- Rôles multi-select -->
+      <div class="form-group">
+        <label class="form-label">Rôles</label>
+        <div class="role-checkboxes" id="roleCheckboxes"></div>
+        <div style="margin-top:10px;font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px">
+          Aperçu des rôles
+        </div>
+        <div class="role-preview-wrap" id="rolePreviewWrap">
+          <span style="color:var(--text2);font-size:12px">Aucun rôle sélectionné</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Visite médicale prévue</label>
+        <input class="form-input" type="date" id="editMedical">
+      </div>
+      <div class="form-group">
+        <label class="form-label">
+          Mot de passe
+          <span style="color:var(--text2);font-size:10px;text-transform:none;letter-spacing:0;font-weight:400;margin-left:6px">(laisser vide pour ne pas changer)</span>
+        </label>
+        <input class="form-input" type="password" id="editPassword" placeholder="Nouveau mot de passe">
+      </div>
+
+      <div style="display:flex;gap:12px;margin-top:8px">
+        <button class="btn-cancel" onclick="closeUserEdit()">Annuler</button>
+        <button class="btn-primary" style="flex:1;margin-top:0" onclick="saveUser()">💾 ENREGISTRER</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
+       CONFIRM DELETE
+  ══════════════════════════════════════════════════════════ -->
+  <div class="confirm-delete" id="confirmDelete">
+    <div class="confirm-box">
+      <div class="confirm-icon">🗑️</div>
+      <div class="confirm-title">Supprimer ?</div>
+      <div class="confirm-sub" id="confirmDeleteName">Cette action est irréversible.</div>
+      <div class="confirm-actions">
+        <button class="btn-cancel" onclick="closeConfirmDelete()">Annuler</button>
+        <button class="btn-danger" onclick="confirmDeleteUser()">Supprimer</button>
+      </div>
+    </div>
+  </div>
+
+  -->
+
+  <div id="toast" class="toast"></div>
+
+  <script type="module" src="app-firebase.js"></script>
+</body>
+</html>
